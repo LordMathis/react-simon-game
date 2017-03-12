@@ -32,9 +32,12 @@ h1 {
 #board-item-0 {
   /*green*/
   background-color: #00a74a;
+  border-radius: 200px 0 0 0;
+  -moz-border-radius: 200px 0 0 0;
+  -webkit-border-radius: 200px 0 0 0;
 }
 
-#board-item-0:active {
+#board-item-0:active, #board-item-0.active {
   /*green light*/
   background-color: #13ff7c;
 }
@@ -42,9 +45,12 @@ h1 {
 #board-item-1 {
   /*red*/
   background-color: #9f0f17;
+  border-radius: 0 200px 0 0 ;
+  -moz-border-radius: 0 200px 0 0 ;
+  -webkit-border-radius: 0 200px 0 0 ;
 }
 
-#board-item-1:active {
+#board-item-1:active, #board-item-1.active {
   /*red light*/
   background-color: #ff4c4c;
 }
@@ -52,9 +58,12 @@ h1 {
 #board-item-2 {
   /*yellow*/
   background-color: #cca707;
+  border-radius: 0 0 0 200px;
+  -moz-border-radius: 0 0 0 200px;
+  -webkit-border-radius: 0 0 0 200px;
 }
 
-#board-item-2:active {
+#board-item-2:active, #board-item-2.active {
   /*yellow light*/
   background-color: #fed93f;
 }
@@ -62,9 +71,12 @@ h1 {
 #board-item-3 {
   /*blue*/
   background-color: #094a8f;
+  border-radius: 0 0 200px 0;
+  -moz-border-radius: 0 0 200px 0;
+  -webkit-border-radius: 0 0 200px 0;
 }
 
-#board-item-3:active {
+#board-item-3:active, #board-item-3.active {
   /*blue light*/
   background-color: #1c8cff;
 }

@@ -4,7 +4,7 @@ var PropTypes = React.PropTypes;
 function BoardItem(props) {
   return (
     <div
-      className="board-item"
+      className={props.isActive ? "board-item active" : "board-item"}
       id={props.itemId}
       onMouseDown={props.onMouseDown}/>
   )
@@ -17,6 +17,7 @@ function Board(props) {
       <BoardItem
         key={item}
         itemId={itemId}
+        isActive={props.activeItems[item]}
         onMouseDown={props.onMouseDown.bind(null, item)} />
     )
   });
@@ -30,7 +31,8 @@ function Board(props) {
 }
 
 Board.propTypes = {
-  onMouseDown: PropTypes.func.isRequired
+  onMouseDown: PropTypes.func.isRequired,
+  activeItems: PropTypes.array.isRequired
 }
 
 module.exports = Board;
