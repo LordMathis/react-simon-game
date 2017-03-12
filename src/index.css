@@ -25,6 +25,48 @@ h1 {
   margin: 10px;
   background-color: black;
   display: inline-block;
+  pointer-events : auto;
+  cursor:pointer;
+}
+
+#board-item-0 {
+  /*green*/
+  background-color: #00a74a;
+}
+
+#board-item-0:active {
+  /*green light*/
+  background-color: #13ff7c;
+}
+
+#board-item-1 {
+  /*red*/
+  background-color: #9f0f17;
+}
+
+#board-item-1:active {
+  /*red light*/
+  background-color: #ff4c4c;
+}
+
+#board-item-2 {
+  /*yellow*/
+  background-color: #cca707;
+}
+
+#board-item-2:active {
+  /*yellow light*/
+  background-color: #fed93f;
+}
+
+#board-item-3 {
+  /*blue*/
+  background-color: #094a8f;
+}
+
+#board-item-3:active {
+  /*blue light*/
+  background-color: #1c8cff;
 }
 
 .board {
@@ -36,9 +78,10 @@ h1 {
   position: absolute;
   left: 0;
   top: 0;
+  z-index: -1;
   height: 100%;
   width: 100%;
-  padding-top: 70px;
+  padding-top: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
