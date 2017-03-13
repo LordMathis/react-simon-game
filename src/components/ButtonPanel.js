@@ -20,7 +20,7 @@ function ButtonPanel(props) {
           onClick={props.onStart}>
           {props.isStarted ? 'STOP' : 'START'}
         </Button>
-        <Label className="button-panel-item">Level: {props.level}</Label>
+        <Label className="button-panel-item">Count: {props.count}</Label>
         <OverlayTrigger placement="bottom" overlay={tooltip}>
           <Button
             bsStyle={props.isStrict ? "success" : "danger"}
@@ -37,7 +37,7 @@ function ButtonPanel(props) {
 ButtonPanel.propTypes = {
   isStarted: PropTypes.bool.isRequired,
   isStrict: PropTypes.bool.isRequired,
-  level: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
   onStrictToggle: PropTypes.func.isRequired,
   onStart: PropTypes.func.isRequired
 }

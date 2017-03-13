@@ -2,9 +2,12 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 
 function BoardItem(props) {
+  var classNames = "board-item"
+  classNames += props.isActive ? " active" : "";
+  classNames += !props.isEnabled ? " disabled" : "";
   return (
     <div
-      className={props.isActive ? "board-item active" : "board-item"}
+      className={classNames}
       id={props.itemId}
       onMouseDown={props.onMouseDown}/>
   )
@@ -18,12 +21,15 @@ function Board(props) {
         key={item}
         itemId={itemId}
         isActive={props.activeItems[item]}
+        isEnabled={props.isEnabled}
         onMouseDown={props.onMouseDown.bind(null, item)} />
     )
   });
+  var classNames = "flex-item board text-center";
+  classNames += props.isBlinking ? " blink" : "";
   return (
     <div className="flex-container">
-      <div className="flex-item board text-center">
+      <div className={classNames}>
         {items}
       </div>
     </div>
@@ -32,7 +38,9 @@ function Board(props) {
 
 Board.propTypes = {
   onMouseDown: PropTypes.func.isRequired,
-  activeItems: PropTypes.array.isRequired
+  activeItems: PropTypes.array.isRequired,
+  isEnabled: PropTypes.bool.isRequired,
+  isBlinking: PropTypes.bool.isRequired
 }
 
 module.exports = Board;

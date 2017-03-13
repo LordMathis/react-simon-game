@@ -7,8 +7,10 @@ var GameContainer = React.createClass({
     return {
       isStarted: false,
       isStrict: false,
-      level: 0,
-      activeItems: [false, false, false, false]
+      count: 0,
+      activeItems: [false, false, false, false],
+      isEnabled: false,
+      isBlinking: false
     }
   },
   handleStrictToggle: function(event) {
@@ -17,32 +19,55 @@ var GameContainer = React.createClass({
     })
   },
   handleStart: function() {
-    this.setState({
-      isStarted: !this.state.isStarted
-    }, this.levelUp);
+    if (this.state.isStarted) {
+      this.stop();
+    } else {
+      this.setState({
+        isStarted: true
+      }, this.countUp);
+    }
   },
-  levelUp: function() {
+  countUp: function() {
     if (this.state.isStarted) {
       this.setState({
-        level: this.state.level+1
+        count: this.state.count+1
       }, this.start)
     }
+  },
+  stop: function() {
+    this.currentIndex = 0;
+    this.soundArray = [];
+    this.setState({
+      isStarted: false,
+      isStrict: this.state.isStrict,
+      count: 0,
+      activeItems: [false, false, false, false],
+      isEnabled: false,
+      isBlinking: false
+    })
   },
   start: function() {
     if (!this.state.isStarted) {
       return
     }
 
-    if (this.soundArray.length < this.state.level) {
+    if (this.soundArray.length < this.state.count) {
       this.soundArray.push(Math.floor(Math.random() * 4));
     }
 
     this.playSounds();
   },
   playSounds: function() {
+
+    this.setState({
+      isBlinking: false
+    })
+
     if (!this.state.isStarted) {
       return;
     }
+
+    this.currentIndex = 0;
 
     // removes active effect to board item
     var setInactive = function(i) {
@@ -71,13 +96,34 @@ var GameContainer = React.createClass({
         this.soundBoard[index].play();
         setTimeout(playSound, 700, i+1);
       } else {
-        
+        this.setState({
+          isEnabled: true
+        });
       }
     }.bind(this);
     playSound(0);
   },
   handleMouseDown: function(i, event) {
     this.soundBoard[i].play();
+
+    if (i === this.soundArray[this.currentIndex]) {
+      this.currentIndex++;
+      if (this.currentIndex >= this.soundArray.length) {
+        setTimeout(this.countUp, 1000);
+      }
+    } else {
+      this.setState({
+        isBlinking: true
+      }, () => setTimeout(this.handleError, 500));
+    }
+  },
+  handleError: function() {
+    if (this.state.isStrict) {
+      this.stop();
+      setTimeout(this.handleStart, 1000);
+    } else {
+      setTimeout(this.playSounds, 1000);
+    }
   },
   componentDidMount: function() {
     this.soundBoard = {
@@ -87,19 +133,24 @@ var GameContainer = React.createClass({
       3: new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
     }
     this.soundArray = [];
+    this.currentIndex = 0;
   },
   render: function() {
     return (
       <div>
+
         <ButtonPanel
           isStarted={this.state.isStarted}
           isStrict={this.state.isStrict}
-          level={this.state.level}
+          count={this.state.count}
           onStrictToggle={this.handleStrictToggle}
           onStart={this.handleStart}/>
+
         <Board
           onMouseDown={this.handleMouseDown}
-          activeItems={this.state.activeItems}/>
+          activeItems={this.state.activeItems}
+          isEnabled={this.state.isEnabled}
+          isBlinking={this.state.isBlinking}/>
 
       </div>
     )
