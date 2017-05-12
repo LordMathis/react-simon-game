@@ -13,4 +13,4 @@ Simon game built with React for Free Code Camp Front End certificate
 `npm run start`
 
 * Build for production
-`npm run production`
+`npm run build`
